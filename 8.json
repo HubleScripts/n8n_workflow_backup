@@ -1,0 +1,15 @@
+{
+  "createdAt": "2023-02-14T11:53:49.660Z",
+  "updatedAt": "2023-02-14T11:53:49.660Z",
+  "id": "8",
+  "name": "HubDB_Delete_POC",
+  "active": false,
+  "nodes": [],
+  "connections": {},
+  "settings": {},
+  "staticData": null,
+  "pinData": {},
+  "versionId": "eda3bc0b-2399-4484-9b15-523e07f274e4",
+  "triggerCount": 0,
+  "tags": []
+}
