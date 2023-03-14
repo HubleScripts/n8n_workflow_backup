@@ -1,0 +1,14 @@
+{
+  "createdAt": "2023-01-10T08:55:17.261Z",
+  "updatedAt": "2023-01-10T08:55:17.159Z",
+  "id": "1",
+  "name": "NASA account",
+  "data": "U2FsdGVkX1/J2D8NR4nAFnrEDovABi0hFeElRkJBkWqtZpq3/lDFipjDd3+4ln62xrmfogeCV6sAhMkkLCARmV4KZl7dpMI8kZYjyUAmEsc=",
+  "type": "nasaApi",
+  "nodesAccess": [
+    {
+      "nodeType": "n8n-nodes-base.nasa",
+      "date": "2023-01-10T08:55:17.094Z"
+    }
+  ]
+}

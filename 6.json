@@ -1,0 +1,14 @@
+{
+  "createdAt": "2023-01-12T09:59:40.619Z",
+  "updatedAt": "2023-01-12T09:59:40.616Z",
+  "id": "6",
+  "name": "HubSpot App Token account",
+  "data": "U2FsdGVkX1/RkW3U5oeDzo/y/GPIwqMqDf7C/Ps711Lx0cA8lsxE+RSC4s1clCMi46MLweO15wDybg0U86dzXhAo6b+BPmwvkNPN9y88aG4=",
+  "type": "hubspotAppToken",
+  "nodesAccess": [
+    {
+      "nodeType": "n8n-nodes-base.hubspot",
+      "date": "2023-01-12T09:59:40.616Z"
+    }
+  ]
+}

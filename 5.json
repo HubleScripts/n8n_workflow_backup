@@ -1,0 +1,14 @@
+{
+  "createdAt": "2023-01-12T09:58:23.609Z",
+  "updatedAt": "2023-01-20T12:28:32.328Z",
+  "id": "5",
+  "name": "HubSpot account",
+  "data": "U2FsdGVkX1/bbmAVgLAG1BnDIjKgtGt/W6L0AvYuDufP9xeMEA5vmvCCqwo7ImefNKZ+beEREYSbf7pOQGiNBk0bgoCqq4BfS9ZOCJG+ybQ=",
+  "type": "hubspotApi",
+  "nodesAccess": [
+    {
+      "nodeType": "n8n-nodes-base.hubspot",
+      "date": "2023-01-12T09:58:23.604Z"
+    }
+  ]
+}

@@ -1,0 +1,134 @@
+{
+  "createdAt": "2023-02-06T13:49:21.986Z",
+  "updatedAt": "2023-02-07T14:44:05.000Z",
+  "id": "7",
+  "name": "QB tax POC",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "2601a1c5-2d24-4499-828c-4e1aecece2b9",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        460,
+        300
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "displayName": "Kaiyana",
+        "additionalFields": {}
+      },
+      "id": "9294239e-2b54-4074-af1a-893905554694",
+      "name": "QuickBooks Online",
+      "type": "n8n-nodes-base.quickbooks",
+      "typeVersion": 1,
+      "position": [
+        660,
+        300
+      ],
+      "credentials": {
+        "quickBooksOAuth2Api": {
+          "id": "14",
+          "name": "QuickBooks Online account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "invoice",
+        "operation": "create",
+        "CustomerRef": "={{ $json[\"Id\"] }}",
+        "Line": [
+          {
+            "itemId": "2",
+            "Amount": 12,
+            "DetailType": "SalesItemLineDetail",
+            "Description": "Development hours purchased",
+            "TaxCodeRef": "TAX"
+          }
+        ],
+        "additionalFields": {
+          "ShipAddr": "154 Victoria road , Cape Town . South Africa"
+        }
+      },
+      "id": "252396f4-3be3-4282-8c51-b0cec9f19d71",
+      "name": "QuickBooks Online1",
+      "type": "n8n-nodes-base.quickbooks",
+      "typeVersion": 1,
+      "position": [
+        880,
+        300
+      ],
+      "credentials": {
+        "quickBooksOAuth2Api": {
+          "id": "14",
+          "name": "QuickBooks Online account 2"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "mergeByFields": {
+          "values": [
+            {}
+          ]
+        },
+        "options": {}
+      },
+      "id": "39215254-ef5d-49f5-8a96-39e32f7fb7c2",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1100,
+        300
+      ]
+    }
+  ],
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "QuickBooks Online",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QuickBooks Online": {
+      "main": [
+        [
+          {
+            "node": "QuickBooks Online1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "QuickBooks Online1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "pinData": {},
+  "versionId": "d64f1f14-deff-447b-af87-b6b8b1fc782d",
+  "triggerCount": 0,
+  "tags": []
+}

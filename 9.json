@@ -1,0 +1,237 @@
+{
+  "createdAt": "2023-03-07T08:23:36.521Z",
+  "updatedAt": "2023-03-14T11:23:57.000Z",
+  "id": "9",
+  "name": "n8n backup workflow",
+  "active": false,
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "22006ce9-90af-40c1-95d0-9051ba4c4242",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        700,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "add",
+        "repositoryPath": "C:\\Users\\Huble\\Documents\\n8n_workflows",
+        "pathsToAdd": "C:\\Users\\Huble\\Documents\\n8n_workflows"
+      },
+      "id": "880f5c16-6cef-4793-b081-7387fc18b84c",
+      "name": "Git1",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        1740,
+        580
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "operation": "commit",
+        "repositoryPath": "C:\\Users\\Huble\\Documents\\n8n_workflows",
+        "message": "n8n workflow commit",
+        "options": {}
+      },
+      "id": "c62a93be-61cf-4bc6-9597-3c8360568982",
+      "name": "Git2",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        1920,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "repositoryPath": "=C:\\Users\\Huble\\Documents\\n8n_workflows",
+        "options": {}
+      },
+      "id": "3c7c4ae2-dbd0-4a06-b478-edddcc162b3d",
+      "name": "Git3",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        2100,
+        580
+      ]
+    },
+    {
+      "parameters": {},
+      "id": "f89005f5-af18-4f24-bd15-18d4322d0a77",
+      "name": "path split",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        340
+      ]
+    },
+    {
+      "parameters": {
+        "command": "n8n export:workflow --backup --output=C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup"
+      },
+      "id": "de466cdd-3e57-4a85-92a4-67e52c233102",
+      "name": "export workflows to local repo",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        1540,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "jsCode": "const fs = require('fs');\n\nif (fs.existsSync('/path/to/folder')) {\n  console.log('Folder exists');\n} else {\n  console.log('Folder does not exist');\n}\n"
+      },
+      "id": "713f7fa6-f841-46e1-b223-17f89622e4f0",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        940,
+        320
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "push",
+        "repositoryPath": "=C:\\Users\\Huble\\Documents\\n8n_workflows",
+        "options": {
+          "targetRepository": "https://github.com/HubleScripts/n8n_workflow_backup"
+        }
+      },
+      "id": "271f3a50-4aaa-44a0-9ec7-c2ef1fb6ec72",
+      "name": "Git",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        1980,
+        180
+      ],
+      "disabled": true
+    },
+    {
+      "parameters": {
+        "command": "git push -u origin master"
+      },
+      "id": "52522a68-a3fc-4c99-b98f-f04360ffcde1",
+      "name": "Execute Command",
+      "type": "n8n-nodes-base.executeCommand",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        580
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "clone"
+      },
+      "id": "59b5642c-9e60-4244-9e91-83ad0053ffdf",
+      "name": "Git4",
+      "type": "n8n-nodes-base.git",
+      "typeVersion": 1,
+      "position": [
+        2540,
+        580
+      ]
+    }
+  ],
+  "connections": {
+    "Git1": {
+      "main": [
+        [
+          {
+            "node": "Git2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git2": {
+      "main": [
+        [
+          {
+            "node": "Git3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "path split": {
+      "main": [
+        [],
+        []
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "export workflows to local repo",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "export workflows to local repo": {
+      "main": [
+        [
+          {
+            "node": "Git1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code": {
+      "main": [
+        []
+      ]
+    },
+    "Git3": {
+      "main": [
+        [
+          {
+            "node": "Execute Command",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Git": {
+      "main": [
+        []
+      ]
+    },
+    "Execute Command": {
+      "main": [
+        [
+          {
+            "node": "Git4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {},
+  "staticData": null,
+  "pinData": {},
+  "versionId": "c2eb186f-c47d-4e4c-a233-95b318cc2477",
+  "triggerCount": 1,
+  "tags": []
+}

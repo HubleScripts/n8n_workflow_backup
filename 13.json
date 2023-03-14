@@ -1,0 +1,14 @@
+{
+  "createdAt": "2023-01-31T12:04:05.917Z",
+  "updatedAt": "2023-01-31T12:12:43.638Z",
+  "id": "13",
+  "name": "HubSpot Developer account",
+  "data": "U2FsdGVkX18Hb1UvSXtQkef4ePkuwFrQ2H+cHBXSZ/I45CHNymYqnC0HE1AgnSueNQvIki7+9qCuqm2ekLDKu1HZR74lx3V3wofS9S7WopUEY4IxafhqKdArB7Gj6tArbmkLwQ9KwydPqbVwqu5Hq4+yabg2Qa6CDwU6FWXcerruzjzVXtyxOiAMKvW2H2AOQFylzKJnHPr3VDw2qvGWSgtQ03xongrtRIp23NGfB9DUDhkpDy6WUs8Eu9FDQu5tOFXqEZGbQIIpYDNKpGplp1OaxTKIWGS/p0SzXP6NHh0+LJWo1HTpHJESSzrRzy24",
+  "type": "hubspotDeveloperApi",
+  "nodesAccess": [
+    {
+      "nodeType": "n8n-nodes-base.hubspotTrigger",
+      "date": "2023-01-31T12:12:43.583Z"
+    }
+  ]
+}
