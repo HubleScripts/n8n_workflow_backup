@@ -1,0 +1,1174 @@
+{
+  "data": [
+    {
+      "createdAt": "2023-03-15T08:53:30.265Z",
+      "updatedAt": "2023-03-15T12:55:37.455Z",
+      "id": "2",
+      "name": "n8n heroku to github backup",
+      "active": false,
+      "nodes": [
+        {
+          "parameters": {},
+          "id": "25b62a8c-75e7-418b-90ea-99a7a8512b67",
+          "name": "When clicking \"Execute Workflow\"",
+          "type": "n8n-nodes-base.manualTrigger",
+          "typeVersion": 1,
+          "position": [
+            1940,
+            940
+          ]
+        },
+        {
+          "parameters": {
+            "command": "npx n8n export:workflow --backup --output=C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup"
+          },
+          "name": "Export Workflows",
+          "type": "n8n-nodes-base.executeCommand",
+          "position": [
+            2140,
+            820
+          ],
+          "typeVersion": 1,
+          "id": "cabd8ac7-1f97-4864-b522-301c4f531392"
+        },
+        {
+          "parameters": {
+            "command": "npx n8n export:credentials --backup --output C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup"
+          },
+          "name": "Export Credentials",
+          "type": "n8n-nodes-base.executeCommand",
+          "position": [
+            2290,
+            820
+          ],
+          "typeVersion": 1,
+          "id": "f190f094-8516-443d-9c08-49a0de211c6f"
+        },
+        {
+          "parameters": {
+            "command": "git -C C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup add ."
+          },
+          "name": "git add",
+          "type": "n8n-nodes-base.executeCommand",
+          "position": [
+            2440,
+            820
+          ],
+          "typeVersion": 1,
+          "id": "ef4d4d8a-56d7-46d9-8bd8-141a06550d6f"
+        },
+        {
+          "parameters": {
+            "command": "=git -C C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup commit -m \"Auto backup ({{ new Date().toISOString() }})\""
+          },
+          "name": "git commit",
+          "type": "n8n-nodes-base.executeCommand",
+          "position": [
+            2590,
+            820
+          ],
+          "typeVersion": 1,
+          "id": "5ee8f2df-7ad0-4273-8327-980b45b2857e"
+        },
+        {
+          "parameters": {
+            "command": "git -C C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup push"
+          },
+          "name": "git push",
+          "type": "n8n-nodes-base.executeCommand",
+          "position": [
+            2740,
+            820
+          ],
+          "typeVersion": 1,
+          "id": "0ef6c91b-83f1-4eb7-98e6-09d9d2092abd"
+        },
+        {
+          "parameters": {
+            "triggerTimes": {
+              "item": [
+                {
+                  "hour": 0
+                },
+                {
+                  "hour": 12
+                },
+                {
+                  "hour": 6
+                },
+                {
+                  "hour": 18
+                }
+              ]
+            }
+          },
+          "name": "Cron",
+          "type": "n8n-nodes-base.cron",
+          "position": [
+            1940,
+            720
+          ],
+          "typeVersion": 1,
+          "id": "cc67d524-42da-4536-8866-022fd1babbb7"
+        }
+      ],
+      "connections": {
+        "Export Workflows": {
+          "main": [
+            [
+              {
+                "node": "Export Credentials",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Export Credentials": {
+          "main": [
+            [
+              {
+                "node": "git add",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "git add": {
+          "main": [
+            [
+              {
+                "node": "git commit",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "git commit": {
+          "main": [
+            [
+              {
+                "node": "git push",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Cron": {
+          "main": [
+            [
+              {
+                "node": "Export Workflows",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "When clicking \"Execute Workflow\"": {
+          "main": [
+            [
+              {
+                "node": "Export Workflows",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "settings": {},
+      "staticData": null,
+      "pinData": {},
+      "versionId": "beed3e7b-b839-40f2-b9f7-3d84a6490e33",
+      "triggerCount": 1,
+      "tags": []
+    },
+    {
+      "createdAt": "2023-03-15T12:58:09.808Z",
+      "updatedAt": "2023-03-17T11:05:34.260Z",
+      "id": "3",
+      "name": "back final draft",
+      "active": false,
+      "nodes": [
+        {
+          "parameters": {},
+          "id": "fe954e28-fe1e-4449-b0d0-3151bd85e5a9",
+          "name": "On clicking 'execute'",
+          "type": "n8n-nodes-base.manualTrigger",
+          "position": [
+            -65,
+            1015
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "resource": "file",
+            "operation": "get",
+            "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
+            "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
+            "filePath": "={{$node[\"Globals\"].json[\"repo\"][\"path\"]}}{{$json[\"name\"]}}.json",
+            "asBinaryProperty": false,
+            "additionalParameters": {}
+          },
+          "id": "e0e89e7a-d4e1-455e-a75c-cf49b9090bf4",
+          "name": "GitHub",
+          "type": "n8n-nodes-base.github",
+          "position": [
+            780,
+            980
+          ],
+          "typeVersion": 1,
+          "alwaysOutputData": true,
+          "credentials": {
+            "githubApi": {
+              "id": "4",
+              "name": "GitHub account 2"
+            }
+          },
+          "continueOnFail": true
+        },
+        {
+          "parameters": {
+            "dataType": "string",
+            "value1": "={{$json[\"github_status\"]}}",
+            "rules": {
+              "rules": [
+                {
+                  "value2": "same"
+                },
+                {
+                  "value2": "different",
+                  "output": 1
+                },
+                {
+                  "value2": "new",
+                  "output": 2
+                }
+              ]
+            }
+          },
+          "id": "3dfc502c-6162-44b0-919e-9b340a5e0f40",
+          "name": "github_status",
+          "type": "n8n-nodes-base.switch",
+          "position": [
+            1420,
+            1120
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {},
+          "id": "5cc94af7-634f-4a7f-a018-e175255d01b1",
+          "name": "same",
+          "type": "n8n-nodes-base.noOp",
+          "position": [
+            1660,
+            920
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {},
+          "id": "18b68260-96e0-4d78-8634-20a48113b824",
+          "name": "different",
+          "type": "n8n-nodes-base.noOp",
+          "position": [
+            1660,
+            1120
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {},
+          "id": "fef72298-8e50-4dbb-95a6-48a74263e17e",
+          "name": "new",
+          "type": "n8n-nodes-base.noOp",
+          "position": [
+            1660,
+            1300
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "resource": "file",
+            "operation": "edit",
+            "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
+            "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
+            "filePath": "={{$node[\"Globals\"].json[\"repo\"][\"path\"]}}{{$node[\"OneAtATime\"].json[\"name\"]}}.json",
+            "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
+            "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
+          },
+          "id": "7f07db89-e389-481a-9d1c-a5846c95b3f2",
+          "name": "GitHub Edit",
+          "type": "n8n-nodes-base.github",
+          "position": [
+            1840,
+            1120
+          ],
+          "typeVersion": 1,
+          "credentials": {
+            "githubApi": {
+              "id": "4",
+              "name": "GitHub account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "resource": "file",
+            "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
+            "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
+            "filePath": "={{$node[\"Globals\"].json[\"repo\"][\"path\"]}}{{$node[\"OneAtATime\"].json[\"name\"]}}.json",
+            "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
+            "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
+          },
+          "id": "fa7b48f0-b052-48b4-9dfe-3cc34fe26b70",
+          "name": "GitHub Create",
+          "type": "n8n-nodes-base.github",
+          "position": [
+            1840,
+            1300
+          ],
+          "typeVersion": 1,
+          "credentials": {
+            "githubApi": {
+              "id": "4",
+              "name": "GitHub account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "batchSize": 1,
+            "options": {}
+          },
+          "id": "d6d4e5e2-cf77-40f8-8595-51dea987a73a",
+          "name": "OneAtATime",
+          "type": "n8n-nodes-base.splitInBatches",
+          "position": [
+            560,
+            1140
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "values": {
+              "string": [
+                {
+                  "name": "repo.owner",
+                  "value": "HubleScripts"
+                },
+                {
+                  "name": "repo.name",
+                  "value": "n8n_workflow_backup"
+                },
+                {
+                  "name": "repo.path",
+                  "value": "HubleScripts/n8n_workflow_backuptest"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "id": "4b9729f1-e74f-47dd-b677-11bd17d9c114",
+          "name": "Globals",
+          "type": "n8n-nodes-base.set",
+          "position": [
+            120,
+            1140
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "triggerTimes": {
+              "item": [
+                {
+                  "mode": "everyX",
+                  "value": 12
+                }
+              ]
+            }
+          },
+          "id": "ec74c42d-5f53-4c9a-bb6f-cb50bbca192a",
+          "name": "Every 12 hours",
+          "type": "n8n-nodes-base.cron",
+          "position": [
+            -65,
+            1275
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "content": "## Workflow Backups\nThis workflow will automatically backup your workflows to your Github account every 12 hours.\n\n### Setup\nOpen Globals and update the values below\n**repo.owner:** This is your Github username\n**repo.name:** This is the name of your repository\n**repo.path:** This is the folder to use within the repository, If it doesn't exist it will be created.\n\nIf your username was `n8n-io` and your repository was called `n8n-backups` and you wanted the workflows to go into a `workflows` folder you would set:\n\nrepo.owner - n8n-io\nrepo.name - n8n-backups\nrepo.path - workflows",
+            "height": 464.79920462713443,
+            "width": 389.78906250000017
+          },
+          "id": "1f24a8ca-3a95-4042-8d44-aca10b336907",
+          "name": "Note",
+          "type": "n8n-nodes-base.stickyNote",
+          "position": [
+            -520,
+            920
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "content": "## Single Item Loop\nWe process each workflow item one at a time, We first check Github to see if a file exists then we merge the Github Data and the API item so we can check if the values match in the function node `isDiffOrNew` we then set a status of `same`, `different` or `new`",
+            "height": 424.04333333333386,
+            "width": 755.2349999999991
+          },
+          "id": "4efd916c-5b35-4963-b02b-f8d7f226d3ff",
+          "name": "Note2",
+          "type": "n8n-nodes-base.stickyNote",
+          "position": [
+            540,
+            860
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "content": "## Save the data\nUsing the switch node we work out what to do based on the previous status,  If it is the same we do nothing, If it is different we update the file in Github and if it is new we create a new file. After this is done we loop back to the Split in Batches node (OneAtAtTime) to start the process again.",
+            "height": 693.9283333333326,
+            "width": 666.4416666666662
+          },
+          "id": "a3f90bf4-c430-4f1d-8375-5ef098e2256a",
+          "name": "Note3",
+          "type": "n8n-nodes-base.stickyNote",
+          "position": [
+            1380,
+            800
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {
+            "jsCode": "// File Returned with Content\nif (Object.keys($input.all()[0].json).includes(\"content\")) {\n  // Get JSON Objects\n  var origWorkflow = JSON.parse(Buffer.from($input.all()[0].json.content, 'base64'));\n  var n8nWorkflow = $input.all()[1].json;\n  \n  // Order JSON Objects\n  var orderedOriginal = {}\n  var orderedActual = {}\n  \n  Object.keys(origWorkflow).sort().forEach(function(key) {\n    orderedOriginal[key] = origWorkflow[key];\n  });\n  \n  Object.keys(n8nWorkflow).sort().forEach(function(key) {\n    orderedActual[key] = n8nWorkflow[key];\n  });\n\n  // Determine Difference\n  if ( JSON.stringify(orderedOriginal) === JSON.stringify(orderedActual) ) {\n    $input.all()[0].json.github_status = \"same\";\n    $input.all()[0].json.content_decoded = orderedOriginal;\n  } else {\n    $input.all()[0].json.github_status = \"different\";\n    $input.all()[0].json.content_decoded = orderedOriginal;\n    $input.all()[0].json.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n  }\n// No File Returned / New Workflow\n} else {\n  // Order JSON Object\n  var n8nWorkflow = ($input.all()[1].json);\n  var orderedActual = {}\n  Object.keys(n8nWorkflow).sort().forEach(function(key) {\n    orderedActual[key] = n8nWorkflow[key];\n  });\n  \n  // Proper Formatting\n  $input.all()[0].json.github_status = \"new\";\n  $input.all()[0].json.n8n_data_stringy = JSON.stringify(orderedActual, null, 2);\n}\n\n// Return Items\nreturn $input.all();"
+          },
+          "id": "361ebc25-7aed-4b5c-ad37-88ff451a2d05",
+          "name": "isDiffOrNew",
+          "type": "n8n-nodes-base.code",
+          "position": [
+            1180,
+            1120
+          ],
+          "typeVersion": 1
+        },
+        {
+          "parameters": {},
+          "id": "ac3b7b34-4287-4e7e-9af7-64cbf4857465",
+          "name": "Merge",
+          "type": "n8n-nodes-base.merge",
+          "position": [
+            1000,
+            1120
+          ],
+          "typeVersion": 2
+        },
+        {
+          "parameters": {
+            "url": "https://huble-dev.herokuapp.com/api/v1/workflows?active=false&limit=100",
+            "authentication": "genericCredentialType",
+            "genericAuthType": "httpHeaderAuth",
+            "options": {}
+          },
+          "id": "10752a79-dc42-4682-a8f4-ee27d925bdd6",
+          "name": "HTTP Request",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 3,
+          "position": [
+            320,
+            1140
+          ],
+          "credentials": {
+            "httpHeaderAuth": {
+              "id": "2",
+              "name": "Header Auth account"
+            }
+          }
+        }
+      ],
+      "connections": {
+        "On clicking 'execute'": {
+          "main": [
+            [
+              {
+                "node": "Globals",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "GitHub": {
+          "main": [
+            [
+              {
+                "node": "Merge",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "github_status": {
+          "main": [
+            [
+              {
+                "node": "same",
+                "type": "main",
+                "index": 0
+              }
+            ],
+            [
+              {
+                "node": "different",
+                "type": "main",
+                "index": 0
+              }
+            ],
+            [
+              {
+                "node": "new",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "same": {
+          "main": [
+            [
+              {
+                "node": "OneAtATime",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "different": {
+          "main": [
+            [
+              {
+                "node": "GitHub Edit",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "new": {
+          "main": [
+            [
+              {
+                "node": "GitHub Create",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "GitHub Edit": {
+          "main": [
+            [
+              {
+                "node": "OneAtATime",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "GitHub Create": {
+          "main": [
+            [
+              {
+                "node": "OneAtATime",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "OneAtATime": {
+          "main": [
+            [
+              {
+                "node": "GitHub",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "Merge",
+                "type": "main",
+                "index": 1
+              }
+            ]
+          ]
+        },
+        "Globals": {
+          "main": [
+            [
+              {
+                "node": "HTTP Request",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Every 12 hours": {
+          "main": [
+            [
+              {
+                "node": "Globals",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "isDiffOrNew": {
+          "main": [
+            [
+              {
+                "node": "github_status",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "Merge": {
+          "main": [
+            [
+              {
+                "node": "isDiffOrNew",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "HTTP Request": {
+          "main": [
+            [
+              {
+                "node": "OneAtATime",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "settings": {},
+      "staticData": null,
+      "pinData": {},
+      "versionId": "1d52cf78-5fa9-4572-bd93-52bc5161498c",
+      "triggerCount": 0,
+      "tags": []
+    },
+    {
+      "createdAt": "2023-03-15T13:18:04.082Z",
+      "updatedAt": "2023-03-15T13:18:04.082Z",
+      "id": "4",
+      "name": "My workflow",
+      "active": false,
+      "nodes": [
+        {
+          "parameters": {},
+          "id": "cca97723-7efd-4e92-b55a-22255b1371ab",
+          "name": "When clicking \"Execute Workflow\"",
+          "type": "n8n-nodes-base.manualTrigger",
+          "typeVersion": 1,
+          "position": [
+            680,
+            1140
+          ]
+        },
+        {
+          "parameters": {
+            "operation": "create",
+            "displayName": "={{ $json[\"properties\"][\"firstname\"] }}  {{ $json[\"properties\"][\"lastname\"] }}",
+            "additionalFields": {}
+          },
+          "id": "df39fdbd-bd97-45d8-862f-a644bd4ce1cf",
+          "name": "QuickBooks Online",
+          "type": "n8n-nodes-base.quickbooks",
+          "typeVersion": 1,
+          "position": [
+            1420,
+            1140
+          ],
+          "credentials": {
+            "quickBooksOAuth2Api": {
+              "id": "8",
+              "name": "QuickBooks Online account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "eventsUi": {
+              "eventValues": [
+                {
+                  "name": "deal.creation"
+                }
+              ]
+            },
+            "additionalFields": {}
+          },
+          "id": "9da72343-44b3-477b-9aac-d47e1863ffc7",
+          "name": "HubSpot Trigger",
+          "type": "n8n-nodes-base.hubspotTrigger",
+          "typeVersion": 1,
+          "position": [
+            680,
+            960
+          ],
+          "webhookId": "164844e9-328e-4482-865a-e2a98bc8acd1",
+          "credentials": {
+            "hubspotDeveloperApi": {
+              "id": "13",
+              "name": "HubSpot Developer account"
+            }
+          },
+          "disabled": true
+        },
+        {
+          "parameters": {
+            "authentication": "appToken",
+            "operation": "get",
+            "dealId": "11775592335",
+            "additionalFields": {}
+          },
+          "id": "76d54fe1-16b4-4bf9-8dab-dbcea31a2ef9",
+          "name": "HubSpot1",
+          "type": "n8n-nodes-base.hubspot",
+          "typeVersion": 1,
+          "position": [
+            980,
+            1140
+          ],
+          "credentials": {
+            "hubspotAppToken": {
+              "id": "11",
+              "name": "HubSpot App Token account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "url": "=https://api.hubapi.com/crm/v4/objects/deals/{{ $json[\"dealId\"] }}/associations/contacts?limit=50",
+            "authentication": "predefinedCredentialType",
+            "nodeCredentialType": "hubspotAppToken",
+            "sendQuery": true,
+            "queryParameters": {
+              "parameters": [
+                {
+                  "name": "Amount closed",
+                  "value": "={{ $json[\"properties\"][\"hs_closed_amount_in_home_currency\"] }}"
+                },
+                {
+                  "name": "DealName",
+                  "value": "={{ $json[\"properties\"][\"dealname\"][\"value\"] }}"
+                },
+                {
+                  "name": "Deal Creation Date",
+                  "value": "={{ $json[\"properties\"][\"createdate\"][\"timestamp\"] }}"
+                },
+                {
+                  "name": "Close Date",
+                  "value": "={{ $json[\"properties\"][\"closedate\"][\"value\"] }}"
+                },
+                {
+                  "name": "Currency",
+                  "value": "={{ $json[\"properties\"][\"deal_currency_code\"][\"versions\"][0][\"value\"] }}"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "id": "f775edb0-13d2-4f5b-a637-8d8394193c93",
+          "name": "HTTP Request",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 3,
+          "position": [
+            1120,
+            1140
+          ],
+          "credentials": {
+            "httpHeaderAuth": {
+              "id": "2",
+              "name": "Header Auth account"
+            },
+            "httpBasicAuth": {
+              "id": "12",
+              "name": "Unnamed credential"
+            },
+            "hubspotAppToken": {
+              "id": "11",
+              "name": "HubSpot App Token account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "resource": "invoice",
+            "operation": "create",
+            "CustomerRef": "={{ $json[\"Id\"] }}",
+            "Line": [
+              {
+                "Description": "=Amount Billed in  {{ $json[\"CurrencyRef\"][\"name\"] }} ({{ $json[\"CurrencyRef\"][\"value\"] }})",
+                "Amount": "={{ $json[\"properties\"][\"hs_closed_amount_in_home_currency\"][\"value\"] }}",
+                "DetailType": "SalesItemLineDetail",
+                "itemId": "12",
+                "TaxCodeRef": "5"
+              }
+            ],
+            "additionalFields": {}
+          },
+          "id": "061cebc2-59fe-4f12-b000-04b1bb1a2361",
+          "name": "QuickBooks Online1",
+          "type": "n8n-nodes-base.quickbooks",
+          "typeVersion": 1,
+          "position": [
+            2040,
+            1260
+          ],
+          "credentials": {
+            "quickBooksOAuth2Api": {
+              "id": "8",
+              "name": "QuickBooks Online account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "url": "=https://api.hubapi.com/crm/v3/objects/contacts/{{ $json[\"results\"][0][\"toObjectId\"] }}",
+            "authentication": "predefinedCredentialType",
+            "nodeCredentialType": "hubspotAppToken",
+            "sendQuery": true,
+            "queryParameters": {
+              "parameters": [
+                {
+                  "name": "Amount closed",
+                  "value": "={{ $json[\"properties\"][\"hs_closed_amount_in_home_currency\"] }}"
+                },
+                {
+                  "name": "DealName",
+                  "value": "={{ $json[\"properties\"][\"dealname\"][\"value\"] }}"
+                },
+                {
+                  "name": "Deal Creation Date",
+                  "value": "={{ $json[\"properties\"][\"createdate\"][\"timestamp\"] }}"
+                },
+                {
+                  "name": "Close Date",
+                  "value": "={{ $json[\"properties\"][\"closedate\"][\"value\"] }}"
+                },
+                {
+                  "name": "Currency",
+                  "value": "={{ $json[\"properties\"][\"deal_currency_code\"][\"versions\"][0][\"value\"] }}"
+                }
+              ]
+            },
+            "options": {}
+          },
+          "id": "ae5b4282-d2de-470d-a6cd-4327d65189be",
+          "name": "HTTP Request1",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 3,
+          "position": [
+            1280,
+            1140
+          ],
+          "credentials": {
+            "httpHeaderAuth": {
+              "id": "2",
+              "name": "Header Auth account"
+            },
+            "httpBasicAuth": {
+              "id": "12",
+              "name": "Unnamed credential"
+            },
+            "hubspotAppToken": {
+              "id": "11",
+              "name": "HubSpot App Token account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "authentication": "appToken",
+            "operation": "get",
+            "dealId": "11775592335",
+            "additionalFields": {}
+          },
+          "id": "d2ad7420-537b-4125-9b46-88349ea230ae",
+          "name": "HubSpot",
+          "type": "n8n-nodes-base.hubspot",
+          "typeVersion": 1,
+          "position": [
+            1620,
+            960
+          ],
+          "credentials": {
+            "hubspotAppToken": {
+              "id": "11",
+              "name": "HubSpot App Token account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "customerId": "={{ $json[\"Id\"] }}"
+          },
+          "id": "8947c2ac-c87b-45d0-af66-5dd38a7359d5",
+          "name": "QuickBooks Online2",
+          "type": "n8n-nodes-base.quickbooks",
+          "typeVersion": 1,
+          "position": [
+            1620,
+            1300
+          ],
+          "credentials": {
+            "quickBooksOAuth2Api": {
+              "id": "8",
+              "name": "QuickBooks Online account"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "mode": "combine",
+            "combinationMode": "multiplex",
+            "options": {}
+          },
+          "id": "7eb2d7bd-6a65-4506-a8db-3d6993a058bc",
+          "name": "Merge",
+          "type": "n8n-nodes-base.merge",
+          "typeVersion": 2,
+          "position": [
+            1800,
+            1100
+          ]
+        },
+        {
+          "parameters": {
+            "method": "PUT",
+            "url": "=https://api.hubapi.com/crm/v3/objects/quotes/{{ $json[\"id\"] }}/associations/0-3/{{ $json[\"dealId\"] }} ",
+            "authentication": "genericCredentialType",
+            "genericAuthType": "httpHeaderAuth",
+            "options": {}
+          },
+          "id": "2a43b60a-9d10-4bbe-9189-99d75defe147",
+          "name": "associate HS quote -> deal",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 3,
+          "position": [
+            2480,
+            980
+          ],
+          "credentials": {
+            "httpHeaderAuth": {
+              "id": "3",
+              "name": "Header Auth account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "method": "POST",
+            "url": "https://api.hubapi.com/crm/v3/objects/quotes/",
+            "authentication": "predefinedCredentialType",
+            "nodeCredentialType": "hubspotAppToken",
+            "sendBody": true,
+            "specifyBody": "json",
+            "jsonBody": "={\n    \"properties\": {    \n        \"hs_expiration_date\": \"2023-10-30T03:30:17.883Z\",\n        \"hs_title\": \"{{ $json[\"properties\"][\"dealname\"][\"value\"] }}\"\n    }\n}  ",
+            "options": {}
+          },
+          "id": "4d8f6c69-aba5-412e-9621-840d54825892",
+          "name": "create HS quote",
+          "type": "n8n-nodes-base.httpRequest",
+          "typeVersion": 3,
+          "position": [
+            2040,
+            1100
+          ],
+          "credentials": {
+            "httpHeaderAuth": {
+              "id": "3",
+              "name": "Header Auth account 2"
+            },
+            "hubspotAppToken": {
+              "id": "11",
+              "name": "HubSpot App Token account 2"
+            }
+          }
+        },
+        {
+          "parameters": {
+            "mode": "combine",
+            "combinationMode": "multiplex",
+            "options": {}
+          },
+          "id": "609396ea-0ae9-4d4b-b77f-78e8666e1956",
+          "name": "Merge1",
+          "type": "n8n-nodes-base.merge",
+          "typeVersion": 2,
+          "position": [
+            2300,
+            980
+          ]
+        }
+      ],
+      "connections": {
+        "When clicking \"Execute Workflow\"": {
+          "main": [
+            [
+              {
+                "node": "HubSpot1",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "HubSpot1": {
+          "main": [
+            [
+              {
+                "node": "HTTP Request",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "HTTP Request": {
+          "main": [
+            [
+              {
+                "node": "HTTP Request1",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "QuickBooks Online": {
+          "main": [
+            [
+              {
+                "node": "HubSpot",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "QuickBooks Online2",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "HTTP Request1": {
+          "main": [
+            [
+              {
+                "node": "QuickBooks Online",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "HubSpot": {
+          "main": [
+            [
+              {
+                "node": "Merge",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "Merge1",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "QuickBooks Online2": {
+          "main": [
+            [
+              {
+                "node": "Merge",
+                "type": "main",
+                "index": 1
+              }
+            ]
+          ]
+        },
+        "Merge": {
+          "main": [
+            [
+              {
+                "node": "QuickBooks Online1",
+                "type": "main",
+                "index": 0
+              },
+              {
+                "node": "create HS quote",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        },
+        "create HS quote": {
+          "main": [
+            [
+              {
+                "node": "Merge1",
+                "type": "main",
+                "index": 1
+              }
+            ]
+          ]
+        },
+        "Merge1": {
+          "main": [
+            [
+              {
+                "node": "associate HS quote -> deal",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
+        }
+      },
+      "settings": {},
+      "staticData": null,
+      "pinData": {},
+      "versionId": "b267afc0-6785-4ef4-b523-ea12de69e847",
+      "triggerCount": 0,
+      "tags": []
+    }
+  ],
+  "nextCursor": null
+}
