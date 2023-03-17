@@ -189,9 +189,9 @@
     },
     {
       "createdAt": "2023-03-15T12:58:09.808Z",
-      "updatedAt": "2023-03-17T11:05:34.260Z",
+      "updatedAt": "2023-03-17T11:10:28.041Z",
       "id": "3",
-      "name": "back final draft",
+      "name": "github to n8n integration final draft",
       "active": false,
       "nodes": [
         {
@@ -371,7 +371,7 @@
                 },
                 {
                   "name": "repo.path",
-                  "value": "HubleScripts/n8n_workflow_backuptest"
+                  "value": "Kaiyana_Test"
                 }
               ]
             },
@@ -496,6 +496,21 @@
               "name": "Header Auth account"
             }
           }
+        },
+        {
+          "parameters": {
+            "content": "Done: get foundational loop working. Backups are now successful with commmits and everything.\n\nTODO: Look at in closer detail on monday and sort into seperate Json's accoding to invidiual workflows ID's",
+            "height": 266.9298740310078,
+            "width": 227.92727228682165
+          },
+          "id": "fbbfa536-f558-4c57-9119-7685d2520f4c",
+          "name": "Sticky Note",
+          "type": "n8n-nodes-base.stickyNote",
+          "typeVersion": 1,
+          "position": [
+            -340,
+            480
+          ]
         }
       ],
       "connections": {
@@ -676,7 +691,7 @@
       "settings": {},
       "staticData": null,
       "pinData": {},
-      "versionId": "1d52cf78-5fa9-4572-bd93-52bc5161498c",
+      "versionId": "9918e69d-8442-475d-9a76-6db213bed886",
       "triggerCount": 0,
       "tags": []
     },
