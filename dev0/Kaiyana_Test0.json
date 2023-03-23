@@ -189,7 +189,7 @@
     },
     {
       "createdAt": "2023-03-15T12:58:09.808Z",
-      "updatedAt": "2023-03-22T12:12:56.026Z",
+      "updatedAt": "2023-03-22T12:20:30.912Z",
       "id": "3",
       "name": "github to n8n integration final draft",
       "active": false,
@@ -371,7 +371,7 @@
                 },
                 {
                   "name": "repo.path",
-                  "value": "n8n_workflow_backup/dev0/Kaiyana_Test"
+                  "value": "dev0/Kaiyana_Test0"
                 }
               ]
             },
@@ -383,26 +383,6 @@
           "position": [
             120,
             1140
-          ],
-          "typeVersion": 1
-        },
-        {
-          "parameters": {
-            "triggerTimes": {
-              "item": [
-                {
-                  "mode": "everyX",
-                  "value": 8
-                }
-              ]
-            }
-          },
-          "id": "ec74c42d-5f53-4c9a-bb6f-cb50bbca192a",
-          "name": "Every 12 hours",
-          "type": "n8n-nodes-base.cron",
-          "position": [
-            -65,
-            1275
           ],
           "typeVersion": 1
         },
@@ -511,6 +491,41 @@
             -340,
             480
           ]
+        },
+        {
+          "parameters": {
+            "content": "Path within GH repo can be setup customly according to whoever is using the workflow \n\nEg. John_Dev/Johns_workflows.json",
+            "height": 341.18386227544903,
+            "width": 233.48668163672636
+          },
+          "id": "374fa25c-324e-4c79-b78e-751283f94c7a",
+          "name": "Sticky Note1",
+          "type": "n8n-nodes-base.stickyNote",
+          "typeVersion": 1,
+          "position": [
+            240,
+            994.9997405189622
+          ]
+        },
+        {
+          "parameters": {
+            "triggerTimes": {
+              "item": [
+                {
+                  "mode": "everyX",
+                  "value": 8
+                }
+              ]
+            }
+          },
+          "id": "ec74c42d-5f53-4c9a-bb6f-cb50bbca192a",
+          "name": "Every 8 hours",
+          "type": "n8n-nodes-base.cron",
+          "position": [
+            -65,
+            1275
+          ],
+          "typeVersion": 1
         }
       ],
       "connections": {
@@ -643,17 +658,6 @@
             ]
           ]
         },
-        "Every 12 hours": {
-          "main": [
-            [
-              {
-                "node": "Globals",
-                "type": "main",
-                "index": 0
-              }
-            ]
-          ]
-        },
         "isDiffOrNew": {
           "main": [
             [
@@ -686,12 +690,23 @@
               }
             ]
           ]
+        },
+        "Every 8 hours": {
+          "main": [
+            [
+              {
+                "node": "Globals",
+                "type": "main",
+                "index": 0
+              }
+            ]
+          ]
         }
       },
       "settings": {},
       "staticData": null,
       "pinData": {},
-      "versionId": "94f27b68-0cd1-4f3d-8f37-38ac9648a293",
+      "versionId": "052fe435-fdba-4e18-8fd9-35b35b552b0b",
       "triggerCount": 0,
       "tags": []
     },
