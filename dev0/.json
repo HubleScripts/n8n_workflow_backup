@@ -189,7 +189,7 @@
     },
     {
       "createdAt": "2023-03-15T12:58:09.808Z",
-      "updatedAt": "2023-03-22T12:20:30.912Z",
+      "updatedAt": "2023-03-27T14:03:10.352Z",
       "id": "3",
       "name": "github to n8n integration final draft",
       "active": false,
@@ -346,7 +346,9 @@
         {
           "parameters": {
             "batchSize": 1,
-            "options": {}
+            "options": {
+              "reset": false
+            }
           },
           "id": "d6d4e5e2-cf77-40f8-8595-51dea987a73a",
           "name": "OneAtATime",
@@ -371,7 +373,7 @@
                 },
                 {
                   "name": "repo.path",
-                  "value": "dev0/Kaiyana_Test0"
+                  "value": "dev0/"
                 }
               ]
             },
@@ -706,7 +708,7 @@
       "settings": {},
       "staticData": null,
       "pinData": {},
-      "versionId": "052fe435-fdba-4e18-8fd9-35b35b552b0b",
+      "versionId": "7f8be741-24bc-4283-a850-a13019e761e2",
       "triggerCount": 0,
       "tags": []
     },
