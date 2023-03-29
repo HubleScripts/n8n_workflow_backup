@@ -1,0 +1,187 @@
+{
+  "active": false,
+  "connections": {
+    "Export Workflows": {
+      "main": [
+        [
+          {
+            "node": "Export Credentials",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Export Credentials": {
+      "main": [
+        [
+          {
+            "node": "git add",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "git add": {
+      "main": [
+        [
+          {
+            "node": "git commit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "git commit": {
+      "main": [
+        [
+          {
+            "node": "git push",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Cron": {
+      "main": [
+        [
+          {
+            "node": "Export Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Export Workflows",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-03-15T08:53:30.265Z",
+  "id": "2",
+  "name": "n8n heroku to github backup",
+  "nodes": [
+    {
+      "parameters": {},
+      "id": "25b62a8c-75e7-418b-90ea-99a7a8512b67",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        1940,
+        940
+      ]
+    },
+    {
+      "parameters": {
+        "command": "npx n8n export:workflow --backup --output=C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup"
+      },
+      "name": "Export Workflows",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        2140,
+        820
+      ],
+      "typeVersion": 1,
+      "id": "cabd8ac7-1f97-4864-b522-301c4f531392"
+    },
+    {
+      "parameters": {
+        "command": "npx n8n export:credentials --backup --output C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup"
+      },
+      "name": "Export Credentials",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        2290,
+        820
+      ],
+      "typeVersion": 1,
+      "id": "f190f094-8516-443d-9c08-49a0de211c6f"
+    },
+    {
+      "parameters": {
+        "command": "git -C C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup add ."
+      },
+      "name": "git add",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        2440,
+        820
+      ],
+      "typeVersion": 1,
+      "id": "ef4d4d8a-56d7-46d9-8bd8-141a06550d6f"
+    },
+    {
+      "parameters": {
+        "command": "=git -C C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup commit -m \"Auto backup ({{ new Date().toISOString() }})\""
+      },
+      "name": "git commit",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        2590,
+        820
+      ],
+      "typeVersion": 1,
+      "id": "5ee8f2df-7ad0-4273-8327-980b45b2857e"
+    },
+    {
+      "parameters": {
+        "command": "git -C C:\\Users\\Huble\\Documents\\GitHub\\n8n_workflow_backup push"
+      },
+      "name": "git push",
+      "type": "n8n-nodes-base.executeCommand",
+      "position": [
+        2740,
+        820
+      ],
+      "typeVersion": 1,
+      "id": "0ef6c91b-83f1-4eb7-98e6-09d9d2092abd"
+    },
+    {
+      "parameters": {
+        "triggerTimes": {
+          "item": [
+            {
+              "hour": 0
+            },
+            {
+              "hour": 12
+            },
+            {
+              "hour": 6
+            },
+            {
+              "hour": 18
+            }
+          ]
+        }
+      },
+      "name": "Cron",
+      "type": "n8n-nodes-base.cron",
+      "position": [
+        1940,
+        720
+      ],
+      "typeVersion": 1,
+      "id": "cc67d524-42da-4536-8866-022fd1babbb7"
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 1,
+  "updatedAt": "2023-03-15T12:55:37.455Z",
+  "versionId": "beed3e7b-b839-40f2-b9f7-3d84a6490e33"
+}
