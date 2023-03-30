@@ -196,8 +196,8 @@
       "name": "On clicking 'execute'",
       "type": "n8n-nodes-base.manualTrigger",
       "position": [
-        -65,
-        1015
+        -620,
+        1220
       ],
       "typeVersion": 1
     },
@@ -207,7 +207,7 @@
         "operation": "get",
         "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
-        "filePath": "={{$node[\"OneAtATime\"].json[\"name\"].replace(\" \", \"\")}}.json",
+        "filePath": "={{ $node[\"Globals\"].json[\"repo\"][\"path\"] }}{{$node[\"OneAtATime\"].json[\"name\"].replace(\" \", \"\")}}.json",
         "asBinaryProperty": false,
         "additionalParameters": {}
       },
@@ -215,8 +215,8 @@
       "name": "GitHub",
       "type": "n8n-nodes-base.github",
       "position": [
-        1180,
-        1000
+        1280,
+        980
       ],
       "typeVersion": 1,
       "alwaysOutputData": true,
@@ -252,8 +252,8 @@
       "name": "github_status",
       "type": "n8n-nodes-base.switch",
       "position": [
-        1820,
-        1140
+        2020,
+        1120
       ],
       "typeVersion": 1
     },
@@ -263,8 +263,8 @@
       "name": "same",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        1960,
-        920
+        2220,
+        900
       ],
       "typeVersion": 1
     },
@@ -274,8 +274,8 @@
       "name": "different",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        1960,
-        1120
+        2220,
+        1100
       ],
       "typeVersion": 1
     },
@@ -285,8 +285,8 @@
       "name": "new",
       "type": "n8n-nodes-base.noOp",
       "position": [
-        1960,
-        1300
+        2220,
+        1280
       ],
       "typeVersion": 1
     },
@@ -296,7 +296,7 @@
         "operation": "edit",
         "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
-        "filePath": "={{$node[\"OneAtATime\"].json[\"name\"].replace(\" \", \"\")}}.json",
+        "filePath": "={{ $node[\"Globals\"].json[\"repo\"][\"path\"] }}{{$node[\"OneAtATime\"].json[\"name\"].replace(\" \", \"\")}}.json",
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
         "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
       },
@@ -304,8 +304,8 @@
       "name": "GitHub Edit",
       "type": "n8n-nodes-base.github",
       "position": [
-        2140,
-        1120
+        2400,
+        1100
       ],
       "typeVersion": 1,
       "credentials": {
@@ -320,7 +320,7 @@
         "resource": "file",
         "owner": "={{$node[\"Globals\"].json[\"repo\"][\"owner\"]}}",
         "repository": "={{$node[\"Globals\"].json[\"repo\"][\"name\"]}}",
-        "filePath": "={{$node[\"OneAtATime\"].json[\"name\"].replace(\" \", \"\")}}.json",
+        "filePath": "={{ $node[\"Globals\"].json[\"repo\"][\"path\"] }}{{$node[\"OneAtATime\"].json[\"name\"].replace(\" \", \"\")}}.json",
         "fileContent": "={{$node[\"isDiffOrNew\"].json[\"n8n_data_stringy\"]}}",
         "commitMessage": "=[N8N Backup] {{$node[\"OneAtATime\"].json[\"name\"]}}.json ({{$json[\"github_status\"]}})"
       },
@@ -328,8 +328,8 @@
       "name": "GitHub Create",
       "type": "n8n-nodes-base.github",
       "position": [
-        2140,
-        1300
+        2400,
+        1280
       ],
       "typeVersion": 1,
       "credentials": {
@@ -350,8 +350,8 @@
       "name": "OneAtATime",
       "type": "n8n-nodes-base.splitInBatches",
       "position": [
-        960,
-        1160
+        1060,
+        1140
       ],
       "typeVersion": 1
     },
@@ -369,7 +369,7 @@
             },
             {
               "name": "repo.path",
-              "value": "dev0/workflow1"
+              "value": "dev0/"
             }
           ]
         },
@@ -379,53 +379,53 @@
       "name": "Globals",
       "type": "n8n-nodes-base.set",
       "position": [
-        120,
+        -140,
         1140
       ],
       "typeVersion": 1
     },
     {
       "parameters": {
-        "content": "## Workflow Backups\nThis workflow will automatically backup your workflows to your Github account every 12 hours.\n\n### Setup\nOpen Globals and update the values below\n**repo.owner:** This is your Github username\n**repo.name:** This is the name of your repository\n**repo.path:** This is the folder to use within the repository, If it doesn't exist it will be created.\n\nIf your username was `n8n-io` and your repository was called `n8n-backups` and you wanted the workflows to go into a `workflows` folder you would set:\n\nrepo.owner - n8n-io\nrepo.name - n8n-backups\nrepo.path - workflows",
-        "height": 464.79920462713443,
+        "content": "## Workflow Backups\nThis workflow will automatically backup your workflows to your Github account every 12 hours.\n\n### Setup\nOpen Globals and update the values below\n**repo.owner:** This is your Github username\n**repo.name:** This is the name of your repository\n**repo.path:** This is the folder to use within the repository, If it doesn't exist it will be created.\n\nIf your username was `n8n-io` and your repository was called `n8n-backups` and you wanted the workflows to go into a `workflows` folder you would set:\n\nrepo.owner - n8n-io\nrepo.name - n8n-backups\nrepo.path - workflows\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nPath within GH repo can be setup customly according to whoever is using the workflow \n\nEg. John_Dev/Johns_workflows.json",
+        "height": 702.6675379604683,
         "width": 389.78906250000017
       },
       "id": "1f24a8ca-3a95-4042-8d44-aca10b336907",
       "name": "Note",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        -520,
-        920
+        -260,
+        718.8183333333332
       ],
       "typeVersion": 1
     },
     {
       "parameters": {
         "content": "## Single Item Loop\nWe process each workflow item one at a time, We first check Github to see if a file exists then we merge the Github Data and the API item so we can check if the values match in the function node `isDiffOrNew` we then set a status of `same`, `different` or `new`",
-        "height": 424.04333333333386,
-        "width": 755.2349999999991
+        "height": 657.8800000000006,
+        "width": 825.7891666666661
       },
       "id": "4efd916c-5b35-4963-b02b-f8d7f226d3ff",
       "name": "Note2",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        940,
-        880
+        980,
+        840
       ],
       "typeVersion": 1
     },
     {
       "parameters": {
         "content": "## Save the data\nUsing the switch node we work out what to do based on the previous status,  If it is the same we do nothing, If it is different we update the file in Github and if it is new we create a new file. After this is done we loop back to the Split in Batches node (OneAtAtTime) to start the process again.",
-        "height": 693.9283333333326,
-        "width": 666.4416666666662
+        "height": 724.1658333333327,
+        "width": 700.7108333333329
       },
       "id": "a3f90bf4-c430-4f1d-8375-5ef098e2256a",
       "name": "Note3",
       "type": "n8n-nodes-base.stickyNote",
       "position": [
-        1780,
-        800
+        1940,
+        780
       ],
       "typeVersion": 1
     },
@@ -437,8 +437,8 @@
       "name": "isDiffOrNew",
       "type": "n8n-nodes-base.code",
       "position": [
-        1580,
-        1140
+        1680,
+        1120
       ],
       "typeVersion": 1
     },
@@ -448,8 +448,8 @@
       "name": "Merge",
       "type": "n8n-nodes-base.merge",
       "position": [
-        1400,
-        1140
+        1500,
+        1120
       ],
       "typeVersion": 2
     },
@@ -477,36 +477,6 @@
     },
     {
       "parameters": {
-        "content": "here we break the single JSON file pulled from the heroku API HTTP request node , into seperate workflow jsons .\n\nOtherwise everything becomes a messy merged single file",
-        "height": 266.9298740310078,
-        "width": 227.92727228682165
-      },
-      "id": "fbbfa536-f558-4c57-9119-7685d2520f4c",
-      "name": "Sticky Note",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        560,
-        980
-      ]
-    },
-    {
-      "parameters": {
-        "content": "Path within GH repo can be setup customly according to whoever is using the workflow \n\nEg. John_Dev/Johns_workflows.json",
-        "height": 341.18386227544903,
-        "width": 233.48668163672636
-      },
-      "id": "374fa25c-324e-4c79-b78e-751283f94c7a",
-      "name": "Sticky Note1",
-      "type": "n8n-nodes-base.stickyNote",
-      "typeVersion": 1,
-      "position": [
-        240,
-        994.9997405189622
-      ]
-    },
-    {
-      "parameters": {
         "triggerTimes": {
           "item": [
             {
@@ -520,8 +490,8 @@
       "name": "Every 8 hours",
       "type": "n8n-nodes-base.cron",
       "position": [
-        -65,
-        1275
+        -620,
+        1000
       ],
       "typeVersion": 1
     },
@@ -538,6 +508,36 @@
         620,
         1140
       ]
+    },
+    {
+      "parameters": {
+        "content": "here we break the single JSON file pulled from the heroku API HTTP request node , into seperate workflow jsons .\n\nOtherwise everything becomes a messy merged single file",
+        "height": 375.45302894211557,
+        "width": 233.48668163672636
+      },
+      "id": "1260aa88-ea8b-4650-9e53-1b4f4d6fbceb",
+      "name": "Sticky Note2",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        560,
+        960
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Making API call to heroku public API to get all current workflows on users instance on n8n\n\nDOCS: https://huble-dev.herokuapp.com/api/v1/docs/",
+        "height": 375.4530289421158,
+        "width": 233.48668163672636
+      },
+      "id": "88a1a1a5-ebcc-4ac1-8b06-1ad907e73bac",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        240,
+        960
+      ]
     }
   ],
   "pinData": {},
@@ -545,6 +545,6 @@
   "staticData": null,
   "tags": [],
   "triggerCount": 0,
-  "updatedAt": "2023-03-29T09:25:38.541Z",
-  "versionId": "df7f07c2-4d53-45bf-a0cf-c5a52916ec81"
+  "updatedAt": "2023-03-30T07:35:31.009Z",
+  "versionId": "58cf67ee-ad73-4bdb-8ec2-33bd0a8b9e53"
 }
