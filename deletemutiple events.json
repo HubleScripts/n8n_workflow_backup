@@ -1,0 +1,119 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar": {
+      "main": [
+        [
+          {
+            "node": "Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-05-22T08:53:55.919Z",
+  "id": "91",
+  "name": "delete mutiple events",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "kaiyana.austin@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "kaiyana.austin@hubledigital.com"
+        },
+        "options": {}
+      },
+      "id": "eb0ccab9-4585-4a55-a57a-7e6544bf04c3",
+      "name": "Google Calendar6",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        1620,
+        440
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "14",
+          "name": "Kaiyana Austin"
+        }
+      },
+      "disabled": true
+    },
+    {
+      "parameters": {},
+      "id": "b73247d2-0498-4458-ad73-fbc8247abf0d",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        740,
+        420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "kaiyana.austin@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "kaiyana.austin@hubledigital.com"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "2023-05-22T09:03:31.435Z"
+        }
+      },
+      "id": "a36a4631-048a-4d14-bd79-8e962ead1cae",
+      "name": "Google Calendar",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        940,
+        420
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "90",
+          "name": "Bradley Chowles"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// Loop over input items and add a new field\n// called 'myNewField' to the JSON of each one\n\n// for (const item of $input.all()) {\n//   item.json.myNewField = 1;\n//   jsonString = JSON.stringify();\n// }\n\nconst jsonString = JSON.parse( $input.all() );\nconst stringArray = [jsonString];\nreturn stringArray;\n"
+      },
+      "id": "75357796-2333-45da-9c01-3c92b03cce24",
+      "name": "Code",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [
+        1160,
+        420
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-05-23T06:40:16.275Z",
+  "versionId": "0fdb7c08-c291-4f29-b6ff-ec4c2e45582d"
+}
