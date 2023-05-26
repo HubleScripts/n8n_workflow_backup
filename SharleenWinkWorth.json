@@ -1,0 +1,538 @@
+{
+  "active": true,
+  "connections": {
+    "Google Calendar1": {
+      "main": [
+        [
+          {
+            "node": "Set1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Yadera created": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Yadera Updated": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HD Diary Firebase1": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF3": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HD Diary Firebase3": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar5",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar5": {
+      "main": [
+        [
+          {
+            "node": "IF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar6": {
+      "main": [
+        [
+          {
+            "node": "IF3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-05-21T09:11:23.125Z",
+  "id": "42",
+  "name": "Sharleen WinkWorth",
+  "nodes": [
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "sharleen.winkworth@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "sharleen.winkworth@hubledigital.com"
+        },
+        "start": "={{ $json.start.dateTime }}",
+        "end": "={{ $json.end.dateTime }}",
+        "additionalFields": {
+          "attendees": [],
+          "summary": "={{ $json.summary }}"
+        }
+      },
+      "id": "93e71787-e3c5-465b-866f-82442fad344b",
+      "name": "Google Calendar1",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        1140,
+        700
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "16",
+          "name": "Sharleen Winkworth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "calendarId": {
+          "__rl": true,
+          "value": "sharleen.winkworth@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "sharleen.winkworth@hubledigital.com"
+        },
+        "triggerOn": "eventCreated",
+        "options": {}
+      },
+      "id": "1fa5363d-3d9c-4a01-8443-99c61a1d58bb",
+      "name": "Yadera created",
+      "type": "n8n-nodes-base.googleCalendarTrigger",
+      "typeVersion": 1,
+      "position": [
+        820,
+        520
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "16",
+          "name": "Sharleen Winkworth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "projectId": "outlook-sync-6a4a2",
+        "collection": "CalendarMatches",
+        "columns": "Huble_ID, Yadera_ID"
+      },
+      "id": "e857cb81-9e58-4bde-95be-23db4c319a46",
+      "name": "HD Diary Firebase",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        1840,
+        574.0465250606362
+      ],
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Yadera_ID",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "0695c8d9-c6bd-4287-addd-a008f088cdf6",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        514.0465250606362
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Huble_ID",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "1334046a-fc2c-41a8-927a-f1c81d351212",
+      "name": "Set1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        654.0465250606362
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "620233c2-e17a-44d6-9825-b1bbf0716499",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        1680,
+        574.0465250606362
+      ]
+    },
+    {
+      "parameters": {
+        "pollTimes": {
+          "item": [
+            {
+              "mode": "everyMinute"
+            }
+          ]
+        },
+        "calendarId": {
+          "__rl": true,
+          "value": "c_pli407dkf8tv04blp02ao1f0k0@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Yadera Planning"
+        },
+        "triggerOn": "eventUpdated",
+        "options": {}
+      },
+      "id": "3df49cb2-906a-47c8-96bc-e0f75a3eb886",
+      "name": "Yadera Updated",
+      "type": "n8n-nodes-base.googleCalendarTrigger",
+      "typeVersion": 1,
+      "position": [
+        800,
+        854.0465250606362
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "16",
+          "name": "Sharleen Winkworth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "query",
+        "projectId": "outlook-sync-6a4a2",
+        "query": "={   \"structuredQuery\": {     \"where\": {       \"fieldFilter\": {         \"field\": {           \"fieldPath\": \"Yadera_ID\"         },         \"op\": \"EQUAL\",         \"value\": {           \"stringValue\": \"{{ $json[\"id\"] }}\"         }       }     },     \"from\": [       {         \"collectionId\": \"CalendarMatches\"       }     ]   } }",
+        "simple": "true"
+      },
+      "id": "6546fe6c-df42-4fba-a78a-58a720dd6de7",
+      "name": "HD Diary Firebase1",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        1000,
+        854.0465250606362
+      ],
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "sharleen.winkworth@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "sharleen.winkworth@hubledigital.com"
+        },
+        "eventId": "={{ $json.Huble_ID }}",
+        "updateFields": {
+          "end": "={{ $node[\"Yadera Updated\"].json[\"end\"][\"dateTime\"] }}",
+          "start": "={{ $node[\"Yadera Updated\"].json[\"start\"][\"dateTime\"] }}"
+        }
+      },
+      "id": "c3a48b54-be0d-4bfa-b022-87efc917a05f",
+      "name": "Google Calendar",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        1220,
+        854.0465250606362
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "16",
+          "name": "Sharleen Winkworth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {
+              "value1": "={{ $json[\"status\"] }}",
+              "value2": "cancelled"
+            }
+          ]
+        }
+      },
+      "id": "b3708c7e-30db-441c-b042-d7ca5be30ddf",
+      "name": "IF3",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1200,
+        1014.0465250606362
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "query",
+        "projectId": "outlook-sync-6a4a2",
+        "query": "={   \"structuredQuery\": {     \"where\": {       \"fieldFilter\": {         \"field\": {           \"fieldPath\": \"Yadera_ID\"         },         \"op\": \"EQUAL\",         \"value\": {           \"stringValue\": \"{{ $json[\"id\"] }}\"         }       }     },     \"from\": [       {         \"collectionId\": \"CalendarMatches\"       }     ]   } }",
+        "simple": "true"
+      },
+      "id": "3a594b01-4de2-4e32-a7c9-f8604a415b7c",
+      "name": "HD Diary Firebase3",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        1400,
+        1014.0465250606362
+      ],
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "sharleen.winkworth@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "sharleen.winkworth@hubledigital.com"
+        },
+        "eventId": "={{ $json.Huble_ID }}",
+        "options": {}
+      },
+      "id": "62c03868-af9f-4371-82fa-c3fa43ed49f5",
+      "name": "Google Calendar5",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        1600,
+        1020
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "16",
+          "name": "Sharleen Winkworth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "c_pli407dkf8tv04blp02ao1f0k0@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Yadera Planning"
+        },
+        "returnAll": true,
+        "options": {
+          "orderBy": "updated",
+          "showDeleted": true,
+          "updatedMin": "={{$now.minus({minutes: 30}).toString()}}"
+        }
+      },
+      "id": "e764f606-7eb7-45bc-a5be-e9c9e5d2d764",
+      "name": "Google Calendar6",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        980,
+        1014.0465250606362
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "16",
+          "name": "Sharleen Winkworth"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "projectId": "outlook-sync-6a4a2",
+        "collection": "CalendarMatches",
+        "documentId": "={{ $node[\"HD Diary Firebase3\"].json[\"_id\"] }}"
+      },
+      "id": "a961e8e0-fa53-4c48-b9d4-77138d0652d5",
+      "name": "HD Diary Firebase2",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        2040,
+        1014.0465250606362
+      ],
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "string": [
+            {}
+          ]
+        }
+      },
+      "id": "7137a5dd-3a4b-47ba-819b-22b7d768c341",
+      "name": "IF",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1800,
+        1014.0465250606362
+      ]
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "saveDataErrorExecution": "none",
+    "saveDataSuccessExecution": "none",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner",
+    "timezone": "Africa/Johannesburg"
+  },
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
+    },
+    "node:Yadera created": {
+      "lastTimeChecked": "2023-05-26T14:00:44Z"
+    },
+    "node:Yadera Updated": {
+      "lastTimeChecked": "2023-05-26T14:00:00Z"
+    }
+  },
+  "tags": [],
+  "triggerCount": 2,
+  "updatedAt": "2023-05-26T14:00:44.160Z",
+  "versionId": "f7468a0f-281f-4ab3-a4db-b591f3567109"
+}
