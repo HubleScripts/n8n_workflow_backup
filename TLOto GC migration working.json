@@ -1,0 +1,530 @@
+{
+  "active": false,
+  "connections": {
+    "get all TLO events from custom date": {
+      "main": [
+        [
+          {
+            "node": "Split Events In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "get all TLO events from custom date",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Split Events In Batches": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase6",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar1": {
+      "main": [
+        [
+          {
+            "node": "Set1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Set1": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "HD Diary Firebase6": {
+      "main": [
+        [
+          {
+            "node": "IF Is Empty?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar3": {
+      "main": [
+        [
+          {
+            "node": "Set",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HD Diary Firebase7": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar2",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "IF Is Empty?": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase7",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Google Calendar1",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Google Calendar3",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HD Diary Firebase1": {
+      "main": [
+        [
+          {
+            "node": "Split Events In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar2": {
+      "main": [
+        [
+          {
+            "node": "Split Events In Batches",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "createdAt": "2023-05-09T12:20:27.811Z",
+  "id": "35",
+  "name": "TLO to GC migration working",
+  "nodes": [
+    {
+      "parameters": {
+        "content": "what are we going to match/filter against?\n\nEtags? can write these so long in events?\n\n22nd onwards has no events in our DB ,only in the google event history API",
+        "height": 203.56222962004233
+      },
+      "id": "4b2d5292-0722-43c9-8f07-63ea6234351a",
+      "name": "Sticky Note",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        360,
+        1060
+      ]
+    },
+    {
+      "parameters": {
+        "content": "Pull all TLO events from persons calendar after the 1st day they started using TLO.\n\nonce we have all the events, we can check if we have them in the db (most likely not?)\n\nthen run a sync workflow to loop through and create all the events from TLO to GC"
+      },
+      "id": "3459f6be-48ce-4987-9641-abd43c5bc65d",
+      "name": "Sticky Note1",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        360,
+        1420
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "c_4ebk11rh41l1q4n1l8fnms4768@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Yadera Planning"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "2023-05-21T22:00:00.000Z",
+          "timeMax": "2023-06-30T22:00:00.000Z"
+        }
+      },
+      "id": "055fc641-66de-4f84-b92c-9e515e0e02c5",
+      "name": "get all TLO events from custom date",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        1080,
+        1160
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "14",
+          "name": "Kaiyana Austin"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "f3b2446d-a6fc-4e9b-a2a7-a7af0a832e25",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        780,
+        1160
+      ]
+    },
+    {
+      "parameters": {
+        "batchSize": 1,
+        "options": {}
+      },
+      "name": "Split Events In Batches",
+      "type": "n8n-nodes-base.splitInBatches",
+      "position": [
+        1280,
+        1160
+      ],
+      "typeVersion": 1,
+      "id": "661c497b-d829-4282-9223-d59c296c694c"
+    },
+    {
+      "parameters": {
+        "calendar": {
+          "__rl": true,
+          "value": "kaiyana.austin@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "kaiyana.austin@hubledigital.com"
+        },
+        "start": "={{ $node[\"Split Events In Batches\"].json[\"start\"][\"dateTime\"] }}",
+        "end": "={{ $node[\"Split Events In Batches\"].json[\"end\"][\"dateTime\"] }}",
+        "additionalFields": {
+          "attendees": [],
+          "summary": "={{ $node[\"Split Events In Batches\"].json[\"summary\"] }}"
+        }
+      },
+      "id": "e0bb0739-8291-487c-b3f7-89b55de8b225",
+      "name": "Google Calendar1",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        2180,
+        1320
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "14",
+          "name": "Kaiyana Austin"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Yadera_ID",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "b82f570c-afc9-456f-bba7-984dcd3d2ba2",
+      "name": "Set",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        2360,
+        1180
+      ]
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combinationMode": "mergeByPosition",
+        "options": {}
+      },
+      "id": "2c47524c-3740-485f-9464-e00f224e0617",
+      "name": "Merge",
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 2,
+      "position": [
+        2640,
+        1240
+      ]
+    },
+    {
+      "parameters": {
+        "keepOnlySet": true,
+        "values": {
+          "string": [
+            {
+              "name": "Huble_ID",
+              "value": "={{ $json.id }}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "id": "fb584a34-c056-44e3-8f54-e51d065ed34c",
+      "name": "Set1",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [
+        2360,
+        1320
+      ]
+    },
+    {
+      "parameters": {
+        "content": "if FB query returns true, update event . \n\nFalse: create the event with the updated parameters",
+        "height": 291.29265770424007,
+        "width": 192.90589451913144
+      },
+      "id": "9047f140-7b80-4b58-9edb-68bc90cd82d8",
+      "name": "Sticky Note3",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        1680,
+        1000
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "calendar": {
+          "__rl": true,
+          "value": "kaiyana.austin@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "kaiyana.austin@hubledigital.com"
+        },
+        "eventId": "={{ $json.Huble_ID }}",
+        "updateFields": {
+          "end": "={{ $node[\"Yadera Updated\"].json[\"end\"][\"dateTime\"] }}",
+          "start": "={{ $node[\"Yadera Updated\"].json[\"start\"][\"dateTime\"] }}"
+        }
+      },
+      "id": "9040e6bf-bff5-4648-84e4-1d194b27a977",
+      "name": "Google Calendar2",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        2360,
+        900
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "14",
+          "name": "Kaiyana Austin"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "query",
+        "projectId": "outlook-sync-6a4a2",
+        "query": "={\n  \"structuredQuery\": {\n    \"where\": {\n      \"fieldFilter\": {\n        \"field\": {\n          \"fieldPath\": \"Yadera_ID\"\n        },\n        \"op\": \"EQUAL\",\n        \"value\": {\n          \"stringValue\": \"{{ $json.id }}\"\n        }\n      }\n    },\n    \"from\": [\n      {\n        \"collectionId\": \"CalendarMatches\"\n      }\n    ]\n  }\n}\n ",
+        "simple": "true"
+      },
+      "id": "ecc0414c-08c9-47bb-8b29-ad2cd48e26d9",
+      "name": "HD Diary Firebase6",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        1480,
+        1160
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "content": "check Firebase for existing event by ID, prevents duplicates from occurring",
+        "height": 293.7900723888313
+      },
+      "id": "63d2d311-c52b-4de0-9df0-24e057aa9bb0",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "typeVersion": 1,
+      "position": [
+        800,
+        740
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "calendar": {
+          "__rl": true,
+          "value": "c_4ebk11rh41l1q4n1l8fnms4768@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Yadera Planning"
+        },
+        "eventId": "={{ $node[\"Split Events In Batches\"].json[\"id\"] }}",
+        "options": {}
+      },
+      "id": "29e0cf60-b51f-4eb0-9402-8b4a16cb4750",
+      "name": "Google Calendar3",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        2180,
+        1180
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "14",
+          "name": "Kaiyana Austin"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "operation": "query",
+        "projectId": "outlook-sync-6a4a2",
+        "query": "={\n  \"structuredQuery\": {\n    \"where\": {\n      \"fieldFilter\": {\n        \"field\": {\n          \"fieldPath\": \"Yadera_ID\"\n        },\n        \"op\": \"EQUAL\",\n        \"value\": {\n          \"stringValue\": \"{{ $json._id }}\"\n        }\n      }\n    },\n    \"from\": [\n      {\n        \"collectionId\": \"CalendarMatches\"\n      }\n    ]\n  }\n}\n ",
+        "simple": "true"
+      },
+      "id": "9db2a9df-a143-42a5-ae99-2bbe9c356e80",
+      "name": "HD Diary Firebase7",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        2180,
+        900
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "boolean": [
+            {
+              "value1": "={{$json[\"empty\"]}}",
+              "value2": true
+            }
+          ],
+          "number": []
+        }
+      },
+      "name": "IF Is Empty?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [
+        1700,
+        1160
+      ],
+      "id": "69da3cbd-d5a6-464b-9582-a97085be1fed"
+    },
+    {
+      "parameters": {
+        "operation": "create",
+        "projectId": "outlook-sync-6a4a2",
+        "collection": "CalendarMatches",
+        "columns": "Yadera_ID,  Huble_ID"
+      },
+      "id": "0e45b87f-9591-42cd-86cd-2026b7c5553f",
+      "name": "HD Diary Firebase1",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        2640,
+        1480
+      ],
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {},
+  "staticData": {
+    "node:Schedule Trigger": {
+      "recurrencyRules": []
+    },
+    "node:Yadera created": {
+      "lastTimeChecked": "2023-05-09T12:20:13Z"
+    },
+    "node:Yadera Updated": {
+      "lastTimeChecked": "2023-05-09T12:19:25Z"
+    }
+  },
+  "tags": [],
+  "triggerCount": 3,
+  "updatedAt": "2023-05-26T12:09:04.748Z",
+  "versionId": "8796891d-faf9-4088-8c63-982da428b49a"
+}
