@@ -1,0 +1,152 @@
+{
+  "active": false,
+  "connections": {
+    "When clicking \"Execute Workflow\"": {
+      "main": [
+        [
+          {
+            "node": "get all TLO events from custom date1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HD Diary Firebase7": {
+      "main": [
+        [
+          {
+            "node": "Google Calendar4",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "get all TLO events from custom date1": {
+      "main": [
+        [
+          {
+            "node": "HD Diary Firebase7",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Calendar4": {
+      "main": [
+        []
+      ]
+    }
+  },
+  "createdAt": "2023-05-18T10:36:16.094Z",
+  "id": "38",
+  "name": "delete all duplicates",
+  "nodes": [
+    {
+      "parameters": {
+        "operation": "getAll",
+        "calendar": {
+          "__rl": true,
+          "value": "c_atngsdq5h82g92pl5802om6eh8@group.calendar.google.com",
+          "mode": "list",
+          "cachedResultName": "Yadera Planning"
+        },
+        "returnAll": true,
+        "options": {
+          "timeMin": "2023-05-21T22:00:00.000Z"
+        }
+      },
+      "id": "ac941fb4-0e8a-4918-b736-04293358f910",
+      "name": "get all TLO events from custom date1",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        -520,
+        460
+      ],
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "40",
+          "name": "Luca Codevilla"
+        }
+      }
+    },
+    {
+      "parameters": {},
+      "id": "eb8947de-055e-4bbc-9a40-9754b70cf25b",
+      "name": "When clicking \"Execute Workflow\"",
+      "type": "n8n-nodes-base.manualTrigger",
+      "typeVersion": 1,
+      "position": [
+        -720,
+        460
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "delete",
+        "calendar": {
+          "__rl": true,
+          "value": "kaiyana.austin@hubledigital.com",
+          "mode": "list",
+          "cachedResultName": "kaiyana.austin@hubledigital.com"
+        },
+        "eventId": "={{ $json.Huble_ID }}",
+        "options": {}
+      },
+      "id": "3b8dd19f-c759-4c55-902b-74e148c98ce6",
+      "name": "Google Calendar4",
+      "type": "n8n-nodes-base.googleCalendar",
+      "typeVersion": 1,
+      "position": [
+        -100,
+        460
+      ],
+      "retryOnFail": false,
+      "credentials": {
+        "googleCalendarOAuth2Api": {
+          "id": "14",
+          "name": "Kaiyana Austin"
+        }
+      },
+      "continueOnFail": true
+    },
+    {
+      "parameters": {
+        "operation": "query",
+        "projectId": "outlook-sync-6a4a2",
+        "query": "={\n  \"structuredQuery\": {\n    \"where\": {\n      \"fieldFilter\": {\n        \"field\": {\n          \"fieldPath\": \"Yadera_ID\"\n        },\n        \"op\": \"EQUAL\",\n        \"value\": {\n          \"stringValue\": \"{{ $json.id }}\"\n        }\n      }\n    },\n    \"from\": [\n      {\n        \"collectionId\": \"CalendarMatches\"\n      }\n    ]\n  }\n} ",
+        "simple": "true"
+      },
+      "id": "b1697e3c-cb6c-45ea-9f4b-d7e0a2c71441",
+      "name": "HD Diary Firebase7",
+      "type": "n8n-nodes-base.googleFirebaseCloudFirestore",
+      "typeVersion": 1,
+      "position": [
+        -320,
+        460
+      ],
+      "alwaysOutputData": true,
+      "credentials": {
+        "googleFirebaseCloudFirestoreOAuth2Api": {
+          "id": "11",
+          "name": "Google Firebase Cloud Firestore account"
+        }
+      }
+    }
+  ],
+  "pinData": {},
+  "settings": {
+    "timezone": "Africa/Johannesburg",
+    "saveExecutionProgress": "DEFAULT",
+    "saveManualExecutions": false,
+    "callerPolicy": "workflowsFromSameOwner"
+  },
+  "staticData": null,
+  "tags": [],
+  "triggerCount": 0,
+  "updatedAt": "2023-05-26T13:14:26.339Z",
+  "versionId": "5ad554c2-2f37-4eb0-a473-1832f90339fc"
+}
